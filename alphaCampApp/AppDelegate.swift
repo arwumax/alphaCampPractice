@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        let auth_token = userDefault.objectForKey("auth_token")
+        
+        if auth_token == nil {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginView: LoginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginView") as! LoginViewController
+            self.window?.makeKeyAndVisible()
+            self.window?.rootViewController?.presentViewController(loginView, animated: true, completion: nil)
+            print(auth_token)
+        }
+        
+        if auth_token != nil {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let aboutAC: SecondViewController = storyboard.instantiateViewControllerWithIdentifier("aboutAC") as! SecondViewController
+            self.window?.makeKeyAndVisible()
+            self.window?.rootViewController?.presentViewController(aboutAC, animated: true, completion: nil)
+        }
+        
+        
         return true
     }
 
